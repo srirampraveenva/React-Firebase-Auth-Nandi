@@ -4,7 +4,7 @@ import logoImg from "../assets/logo.png";
 function Logo() {
   return (
     <div className="text-center">
-      <img class="img-fluid" alt="logo" src={logoImg}></img>
+      <img className="img-fluid" alt="logo" src={logoImg}></img>
     </div>
   )
 }

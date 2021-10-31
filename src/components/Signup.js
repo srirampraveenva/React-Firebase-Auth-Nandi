@@ -7,10 +7,27 @@ export default function Signup() {
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
-  const { signup } = useAuth()
+  const { signup, loginGoogle } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
+
+  async function loginToGoogle(e){
+    e.preventDefault()
+
+    try{
+      setError("")
+      setLoading(true)
+      await loginGoogle().then((res) => {
+        console.log(res.user)
+        setLoading(false)
+      })
+      history.push("/")
+    } catch{
+      setError("Failed to log in using Google")
+      setLoading(false)
+    }
+  } 
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -54,6 +71,11 @@ export default function Signup() {
               Sign Up
             </Button>
           </Form>
+          <div className="w-100 text-center mt-3">
+            <Link to="/" disabled={loading} className="w-100 mt-1" onClick={loginToGoogle}>
+              Sign Up Using Google
+            </Link>
+          </div>
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">
